@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyect_test/pages/login/login.dart';
-import 'package:proyect_test/pages/singIn/sing_in.dart';
+import 'package:proyect_test/pages/pages.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,11 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: "login",
       title: "entry test",
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
-        'singIn': (context) => const SingInScreen(),
+        'singIn': (context) => const SignInScreen(),
         'login': (context) => const LoginScreen(),
       },
     );
