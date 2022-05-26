@@ -202,7 +202,7 @@ class RegisterButton extends StatelessWidget {
             },
             child: const Text(
               'Join us',
-              style: TextStyle(color: Colors.blue, fontSize: 18),
+              style: TextStyle(color: Color.fromARGB(255, 91, 81, 240), fontSize: 18),
             ),
           )
         ],
