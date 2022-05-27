@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:proyect_test/pages/splashes/splash_view.dart';
 import 'package:proyect_test/services/sessions.dart';
 
+import '../../widgets/alert_dialog.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -177,11 +179,16 @@ class _LoginFormState extends State<LoginForm> {
                 if (_formKey.currentState!.validate()) {
                   var sesion = Sessions();
                   var response = await sesion.getLogin(email, password);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(response),
-                    ),
-                  );
+                  if (response == "0") {
+                    showDialog<void>(
+                      context: context,
+                      builder: (_) => const AlertWidget(
+                        mensaje: "Wrong credencials",
+                      ),
+                    );
+                  } else {
+                    Navigator.popAndPushNamed(context, "home");
+                  }
                 }
               },
               child: const Text(

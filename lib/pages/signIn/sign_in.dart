@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:proyect_test/pages/splashes/splash_view_register.dart';
 import 'package:proyect_test/services/sessions.dart';
+import 'package:proyect_test/widgets/alert_dialog.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -175,7 +176,7 @@ class _SingUpFormState extends State<SingUpForm> {
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty || value.length < 8) {
-                    return 'Please enter a valid  password';
+                    return 'The password must contain at least 8 characters';
                   }
                   return null;
                 },
@@ -229,17 +230,25 @@ class _SingUpFormState extends State<SingUpForm> {
                     borderRadius: BorderRadius.circular(32.0)),
                 minimumSize: Size(width * 0.85, height * 0.07),
               ),
-              onPressed: () async{
-
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   var session = Sessions();
-                  var response = await session.getSignUP(email, password, phone);
-                  print(response);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                     SnackBar(
-                      content: Text(response),
-                    ),
-                  );
+                  var response =
+                      await session.getSignUP(email, password, phone);
+                  if (response == "0") {
+                    showDialog<void>(
+                      context: context,
+                      builder: (_) => const AlertWidget(
+                        mensaje: "Can't create the user",
+                      ),
+                    );
+                  } else {
+                    showDialog<void>(
+                        context: context,
+                        builder: (_) => const AlertWidget(
+                              mensaje: "Created correctly",
+                            ));
+                  }
                 }
               },
               child: const Text(
