@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:proyect_test/pages/splashes/splash_view_register.dart';
+import 'package:proyect_test/services/sessions.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -67,6 +68,11 @@ class SingUpForm extends StatefulWidget {
 
 class _SingUpFormState extends State<SingUpForm> {
   final _formKey = GlobalKey<FormState>();
+  bool _isObscure = true;
+  String password = "";
+  String phone = "";
+  String email = "";
+
   @override
   Widget build(BuildContext context) {
     double width = widget.sizes.width;
@@ -102,6 +108,11 @@ class _SingUpFormState extends State<SingUpForm> {
             child: SizedBox(
               height: fieldheigth,
               child: TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    email = value;
+                  });
+                },
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderRadius: borderField,
@@ -134,6 +145,12 @@ class _SingUpFormState extends State<SingUpForm> {
             child: SizedBox(
               height: fieldheigth,
               child: TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    password = value;
+                  });
+                },
+                obscureText: _isObscure,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderRadius: borderField,
@@ -142,9 +159,16 @@ class _SingUpFormState extends State<SingUpForm> {
                     borderRadius: borderField,
                     borderSide: defaultBorderField,
                   ),
-                  prefixIcon: const Icon(
-                    Icons.password,
-                    color: Colors.blue,
+                  prefixIcon: IconButton(
+                    icon: Icon(
+                      _isObscure ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isObscure = !_isObscure;
+                      });
+                    },
                   ),
                   border: fieldRadious,
                   hintText: 'Enter the password',
@@ -163,6 +187,11 @@ class _SingUpFormState extends State<SingUpForm> {
             child: SizedBox(
               height: fieldheigth,
               child: TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    phone = value;
+                  });
+                },
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
@@ -200,17 +229,21 @@ class _SingUpFormState extends State<SingUpForm> {
                     borderRadius: BorderRadius.circular(32.0)),
                 minimumSize: Size(width * 0.85, height * 0.07),
               ),
-              onPressed: () {
+              onPressed: () async{
+
                 if (_formKey.currentState!.validate()) {
+                  var session = Sessions();
+                  var response = await session.getSignUP(email, password, phone);
+                  print(response);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Processing Data'),
+                     SnackBar(
+                      content: Text(response),
                     ),
                   );
                 }
               },
               child: const Text(
-                'LOG IN',
+                'SING IN',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),

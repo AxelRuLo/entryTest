@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyect_test/pages/splashes/splash_view.dart';
+import 'package:proyect_test/services/sessions.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -58,6 +59,8 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  String password = "";
+  String email = "";
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -94,6 +97,11 @@ class _LoginFormState extends State<LoginForm> {
             child: SizedBox(
               height: fieldheigth,
               child: TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    email = value;
+                  });
+                },
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderRadius: borderField,
@@ -123,6 +131,12 @@ class _LoginFormState extends State<LoginForm> {
             child: SizedBox(
               height: fieldheigth,
               child: TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    password = value;
+                  });
+                },
+                obscureText: true,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderRadius: borderField,
@@ -159,11 +173,13 @@ class _LoginFormState extends State<LoginForm> {
                     borderRadius: BorderRadius.circular(32.0)),
                 minimumSize: Size(width * 0.85, height * 0.07),
               ),
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
+                  var sesion = Sessions();
+                  var response = await sesion.getLogin(email, password);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Processing Data'),
+                    SnackBar(
+                      content: Text(response),
                     ),
                   );
                 }
@@ -202,7 +218,8 @@ class RegisterButton extends StatelessWidget {
             },
             child: const Text(
               'Join us',
-              style: TextStyle(color: Color.fromARGB(255, 91, 81, 240), fontSize: 18),
+              style: TextStyle(
+                  color: Color.fromARGB(255, 91, 81, 240), fontSize: 18),
             ),
           )
         ],
