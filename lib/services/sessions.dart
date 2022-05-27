@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:proyect_test/services/models/login_model.dart';
+
 
 class Sessions {
   Future<String> getLogin(String username, String password) async {
