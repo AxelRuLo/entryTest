@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:proyect_test/pages/splashes/splash_view_register.dart';
 import 'package:proyect_test/services/sessions.dart';
+import 'package:proyect_test/styles/register_style.dart';
 import 'package:proyect_test/widgets/alert_dialog.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -9,10 +10,14 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size sizes = MediaQuery.of(context).size;
+    final width = sizes.width;
+    final height = sizes.height;
+
     return Scaffold(
-      body: const CustomPaint(
-        painter: SplashCanvasRegister(),
-        child: SafeArea(
+      body: CustomPaint(
+        painter: SplashCanvasRegister(height: height, width: width),
+        child: const SafeArea(
           child: Center(
             child: SingleChildScrollView(
               child: MainWidget(),
@@ -28,7 +33,7 @@ class SignInScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         child: const Icon(Icons.arrow_back),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
     );
   }
 }
@@ -76,6 +81,8 @@ class _SingUpFormState extends State<SingUpForm> {
 
   @override
   Widget build(BuildContext context) {
+    var style = RegisterStyle();
+
     double width = widget.sizes.width;
 
     double height = widget.sizes.height;
@@ -114,21 +121,7 @@ class _SingUpFormState extends State<SingUpForm> {
                     email = value;
                   });
                 },
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: borderField,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: borderField,
-                    borderSide: defaultBorderField,
-                  ),
-                  prefixIcon: const Icon(
-                    Icons.people,
-                    color: Colors.blue,
-                  ),
-                  border: fieldRadious,
-                  hintText: 'Enter your email',
-                ),
+                decoration: style.formUserStyle,
                 validator: (value) {
                   if (value == null ||
                       value.isEmpty ||
@@ -194,21 +187,7 @@ class _SingUpFormState extends State<SingUpForm> {
                   });
                 },
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: borderField,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: borderField,
-                    borderSide: defaultBorderField,
-                  ),
-                  prefixIcon: const Icon(
-                    Icons.phone_android,
-                    color: Colors.blue,
-                  ),
-                  border: fieldRadious,
-                  hintText: 'Enter the phone',
-                ),
+                decoration: style.formPhoneStyle,
                 validator: (value) {
                   if (value == null || value.isEmpty || value.length < 10) {
                     return 'Please enter a phone number';

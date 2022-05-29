@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SplashCanvasRegister extends CustomPainter {
-  const SplashCanvasRegister();
+  SplashCanvasRegister({required  this.width, required  this.height});
+  double width ;
+  double height ;
+
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -14,21 +17,22 @@ class SplashCanvasRegister extends CustomPainter {
     paint.strokeWidth = 5;
 
     final path = Path();
+    
 
-    path.lineTo(0, size.height * 0.1);
+    path.lineTo(0, height * 0.1);
 
-    path.quadraticBezierTo(size.width * 0.2, size.height * 0.13,
-        size.width * 0.35, size.height * 0.13);
-
-    path.quadraticBezierTo(
-        size.width * 0.98, size.height * 0.13, size.width, size.height * 0.12);
-
-    path.lineTo(size.width, 0);
-
-    path.moveTo(0, size.height);
+    path.quadraticBezierTo(width * 0.2, height * 0.13,
+        width * 0.35, height * 0.13);
 
     path.quadraticBezierTo(
-        size.width * 0.15, size.height * 0.95, size.width, size.height);
+        width * 0.98, height * 0.13, width, height * 0.12);
+
+    path.lineTo(width, 0);
+
+    path.moveTo(0, height);
+
+    path.quadraticBezierTo(
+        width * 0.15, height * 0.95, width, height);
 
     canvas.drawPath(path, paint);
 

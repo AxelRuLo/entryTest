@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 class Sessions {
   Future<String> getLogin(String username, String password) async {
     final response = await http.post(
-      Uri.parse('http://dev.memry.feelycom.com/rmnd/api/login'),
+      Uri.parse('http://dev.memry.feelycom.com/rmnd/api/access/log-in'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -22,8 +22,7 @@ class Sessions {
     }
   }
 
-  Future<String> getSignUP(
-      String username, String password, String phone) async {
+  Future<String> getSignUP(String username, String password, String phone) async {
     final response = await http.post(
       Uri.parse('http://dev.memry.feelycom.com/rmnd/api/access/sign-in'),
       headers: <String, String>{

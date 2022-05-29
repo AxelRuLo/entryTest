@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyect_test/pages/splashes/splash_view.dart';
 import 'package:proyect_test/services/sessions.dart';
-
 import '../../widgets/alert_dialog.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -9,10 +8,13 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    Size sizes = MediaQuery.of(context).size;
+    final width = sizes.width;
+    final height = sizes.height;
+    return Scaffold(
       body: CustomPaint(
-        painter: SplashCanvas(),
-        child: SafeArea(
+        painter: SplashCanvas(height: height, width: width),
+        child: const SafeArea(
           child: Center(
             child: SingleChildScrollView(
               child: MainContent(),
@@ -63,6 +65,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   String password = "";
   String email = "";
+  bool _isObscure = true;
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -138,7 +141,7 @@ class _LoginFormState extends State<LoginForm> {
                     password = value;
                   });
                 },
-                obscureText: true,
+                obscureText: _isObscure,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderRadius: borderField,
@@ -147,9 +150,16 @@ class _LoginFormState extends State<LoginForm> {
                     borderRadius: borderField,
                     borderSide: defaultBorderField,
                   ),
-                  prefixIcon: const Icon(
-                    Icons.password,
-                    color: Colors.blue,
+                  prefixIcon: IconButton(
+                    icon: Icon(
+                      _isObscure ? Icons.visibility : Icons.visibility_off,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isObscure = !_isObscure;
+                      });
+                    },
                   ),
                   border: fieldRadious,
                   hintText: 'Enter the password',
