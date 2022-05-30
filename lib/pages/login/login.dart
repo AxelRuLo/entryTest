@@ -62,11 +62,14 @@ class LoginForm extends StatefulWidget {
   State<LoginForm> createState() => _LoginFormState();
 }
 
+final _formKey = GlobalKey<FormState>();
+
 class _LoginFormState extends State<LoginForm> {
   String password = "";
   String email = "";
   bool _isObscure = true;
-  final _formKey = GlobalKey<FormState>();
+  var sesion = Sessions();
+
   @override
   Widget build(BuildContext context) {
     double width = widget.sizes.width;
@@ -187,7 +190,6 @@ class _LoginFormState extends State<LoginForm> {
               ),
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  var sesion = Sessions();
                   var response = await sesion.getLogin(email, password);
                   if (response == "0") {
                     showDialog<void>(

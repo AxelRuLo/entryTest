@@ -82,6 +82,7 @@ class _SingUpFormState extends State<SingUpForm> {
   @override
   Widget build(BuildContext context) {
     var style = RegisterStyle();
+    var session = Sessions();
 
     double width = widget.sizes.width;
 
@@ -211,7 +212,6 @@ class _SingUpFormState extends State<SingUpForm> {
               ),
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  var session = Sessions();
                   var response =
                       await session.getSignUP(email, password, phone);
                   if (response == "0") {
