@@ -15,10 +15,9 @@ class LoginScreen extends StatelessWidget {
       body: CustomPaint(
         painter: SplashCanvas(height: height, width: width),
         child: const SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              child: MainContent(),
-            ),
+          
+          child: SingleChildScrollView(
+            child: MainContent(),
           ),
         ),
       ),
@@ -37,16 +36,20 @@ class MainContent extends StatelessWidget {
     final TextStyle styleLabel =
         TextStyle(fontWeight: FontWeight.w800, fontSize: sizes.width * 0.06);
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(bottom: sizes.height * 0.1),
-          child: Text("Sign in", style: styleLabel),
-        ),
-        LoginForm(sizes: sizes),
-        const RegisterButton()
-      ],
+    return SizedBox(
+      width: sizes.width,
+      height: sizes.height,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(bottom: sizes.height * 0.1),
+            child: Text("Sign in", style: styleLabel),
+          ),
+          LoginForm(sizes: sizes),
+          const RegisterButton()
+        ],
+      ),
     );
   }
 }

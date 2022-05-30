@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Sessions {
+  
   Future<String> getLogin(String username, String password) async {
     var header = await getJwt();
     final response = await http.post(
@@ -15,6 +16,8 @@ class Sessions {
         'password': password,
       }),
     );
+    print(response.statusCode);
+    print(response.body);
 
     if (response.statusCode == 200) {
       return "Se accedio correctamente";

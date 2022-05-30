@@ -18,10 +18,8 @@ class SignInScreen extends StatelessWidget {
       body: CustomPaint(
         painter: SplashCanvasRegister(height: height, width: width),
         child: const SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              child: MainWidget(),
-            ),
+          child: SingleChildScrollView(
+            child: MainWidget(),
           ),
         ),
       ),
@@ -48,15 +46,19 @@ class MainWidget extends StatelessWidget {
     Size sizes = MediaQuery.of(context).size;
     final TextStyle styleLabel =
         TextStyle(fontWeight: FontWeight.w800, fontSize: sizes.width * 0.06);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(bottom: sizes.height * 0.1),
-          child: Text("Sing up", style: styleLabel),
-        ),
-        SingUpForm(sizes: sizes),
-      ],
+    return SizedBox(
+      height: sizes.height,
+      width: sizes.width,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(bottom: sizes.height * 0.1),
+            child: Text("Sing up", style: styleLabel),
+          ),
+          SingUpForm(sizes: sizes),
+        ],
+      ),
     );
   }
 }
