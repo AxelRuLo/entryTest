@@ -189,11 +189,10 @@ class _SingUpFormState extends State<SingUpForm> {
                     phone = value;
                   });
                 },
-                keyboardType: TextInputType.number,
                 decoration: style.formPhoneStyle,
                 validator: (value) {
-                  if (value == null || value.isEmpty || value.length < 10) {
-                    return 'Please enter a phone number';
+                  if (value == null || value.isEmpty ) {
+                    return 'Please enter a name';
                   }
                   return null;
                 },
