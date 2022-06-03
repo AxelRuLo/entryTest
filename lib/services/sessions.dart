@@ -24,7 +24,7 @@ class Sessions {
       String username, String password, String phone) async {
     final response = await http.get(
       Uri.parse(
-          'http://54.221.104.210/api/register/acces/${username}/${password}/${phone}'),
+          'http://54.91.147.217/api/register/acces/${username}/${password}/${phone}'),
     );
     print(response.statusCode);
     print(response.body);
